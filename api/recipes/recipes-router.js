@@ -1,7 +1,12 @@
 const router = require("express").Router();
+const {getAll} = require('./recipes-model')
 
 router.get("/", (req, res, next) => {
-    res.json("hi")
+   getAll()
+   .then(recipes => {
+    console.log(recipes)
+    res.json(recipes)
+   })
 });
 
 router.get('/:id', (req, res, next) => {
