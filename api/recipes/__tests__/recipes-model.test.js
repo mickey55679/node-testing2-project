@@ -31,3 +31,15 @@ describe("getAll", () => {
     });
   });
 });
+describe('getById', () => {
+  it("should retrieve a single recipe from the db with that id", async () => {
+    const allRecipes = await Recipe.getAll();
+    const recipeId = allRecipes[0].recipe_id;
+   
+    const fetchedRecipe = await Recipe.getById(recipeId);
+
+    expect(fetchedRecipe[0]).toHaveProperty('recipe_id', recipeId)
+
+  })
+})
+

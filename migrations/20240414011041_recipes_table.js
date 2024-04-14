@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable("recipes", tbl => {
-    tbl.increments()
+    tbl.increments('recipe_id')
     tbl.string('name')
     tbl.text('ingredients')
     tbl.text('steps')

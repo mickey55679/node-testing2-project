@@ -1,16 +1,19 @@
 const router = require("express").Router();
-const {getAll} = require('./recipes-model')
+const {getAll, getById} = require('./recipes-model')
 
 router.get("/", (req, res, next) => {
    getAll()
-   .then(recipes => {
-    console.log(recipes)
-    res.json(recipes)
+   .then(response => {
+    res.json(response)
    })
 });
 
 router.get('/:id', (req, res, next) => {
-    res.json(':id')
+    const {id} = req.params; 
+    getById(id)
+    .then(response => {
+        res.json(response)
+    })
 })
 router.post('/', (req, res, next) => {
  res.status(201).json('post')
