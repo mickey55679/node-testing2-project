@@ -1,13 +1,26 @@
+const cleaner = require("knex-cleaner");
 
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
+  return cleaner
+    .clean(knex, {
+      mode: "truncate", //resets ids
+      ignoreTables: ["knex_migrations", "knex_migrations_lock"],
+    })
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
+      return knex("recipes").insert([
+        {
+          name: "Pizza",
+          ingredients: "Dough, Tomato Sauce, Cheese",
+          steps: "Knead dough, Spread sauce, Add cheese, Bake in oven",
+        },
+        {
+          name: "Pasta",
+          ingredients: "Pasta, Tomato Sauce",
+          steps: "Boil pasta, Heat sauce, Combine pasta and sauce",
+        },
+        // Add more recipes as needed
       ]);
     });
 };
