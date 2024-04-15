@@ -65,4 +65,17 @@ describe("recipes-router.js", () => {
   });
 
 });
+describe("[Delete] /:id", () => {
+  it("should delete a particular resource with a specific id ", async () => {
+    const id = 1; 
+
+    const res = await request(server).delete(`/api/recipes/${id}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty(
+      "message",
+      `The recipe with id ${id} was deleted`
+    );
+  });
+});
   });
