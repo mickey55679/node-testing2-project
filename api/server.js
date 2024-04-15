@@ -7,5 +7,10 @@ server.use(express.json());
 
 server.use('/api/recipes', recipeRouter);
 
+server.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('error')
+})
+
 
 module.exports = server;
