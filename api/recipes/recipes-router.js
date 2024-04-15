@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { getAll, getById, add, update, remove} = require("./recipes-model");
-const {checkIfExists} = require('./recipes-middleware')
+const {checkIfExists, validateChanges} = require('./recipes-middleware')
 
 router.get("/", (req, res, next) => {
   getAll().then((response) => {
@@ -24,7 +24,7 @@ router.post("/", checkIfExists, (req, res, next) => {
   })
   .catch(next)
 });
-router.put("/:id", (req, res, next) => {
+router.put("/:id", validateChanges, (req, res, next) => {
  const {id} = req.params; 
  const changes = req.body;
  console.log(id, changes);
