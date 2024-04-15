@@ -12,7 +12,6 @@ router.get("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   const { id } = req.params;
   getById(id).then((response) => {
-    console.log(response[0]);
     res.json(response[0]);
   })
   .catch(next)
@@ -27,10 +26,9 @@ router.post("/", checkIfExists, (req, res, next) => {
 router.put("/:id", validateChanges, (req, res, next) => {
  const {id} = req.params; 
  const changes = req.body;
- console.log(id, changes);
  update(id, changes)
  .then(response => {
-    res.json(response)
+    res.status(201).json(response)
  })
  .catch(next)
  
