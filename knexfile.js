@@ -26,5 +26,8 @@ module.exports = {
     seeds: {
       directory: "./seeds",
     },
+    jest: {
+      testEnvironment: "node",
+    },
   },
 };

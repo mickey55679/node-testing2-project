@@ -20,7 +20,7 @@ router.get("/:id", (req, res, next) => {
 router.post("/", checkIfExists, (req, res, next) => {
   const recipe = req.body;
   add(recipe).then((response) => {
-    res.json(response);
+    res.status(201).json(response);
   })
   .catch(next)
 });
