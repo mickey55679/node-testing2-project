@@ -4,6 +4,7 @@ module.exports = {
 getAll,
 getById,
 add,
+update,
 }
 
 function getAll() {
@@ -18,5 +19,14 @@ async function add(recipe) {
     .insert(recipe)
     .then(() => {
      return recipe;
+    })
+    
+}
+async function update(id, changes) {
+    return db('recipes')
+    .where('recipe_id', id)
+    .update(changes)
+    .then(() => {
+        return getById(id)
     })
 }

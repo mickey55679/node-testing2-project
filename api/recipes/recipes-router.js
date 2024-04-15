@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { getAll, getById, add } = require("./recipes-model");
+const { getAll, getById, add, update } = require("./recipes-model");
 const {checkIfExists} = require('./recipes-middleware')
 
 router.get("/", (req, res, next) => {
@@ -14,16 +14,26 @@ router.get("/:id", (req, res, next) => {
   getById(id).then((response) => {
     console.log(response[0]);
     res.json(response[0]);
-  });
+  })
+  .catch(next)
 });
 router.post("/", checkIfExists, (req, res, next) => {
   const recipe = req.body;
   add(recipe).then((response) => {
     res.json(response);
-  });
+  })
+  .catch(next)
 });
 router.put("/:id", (req, res, next) => {
-  res.json("put");
+ const {id} = req.params; 
+ const changes = req.body;
+ console.log(id, changes);
+ update(id, changes)
+ .then(response => {
+    res.json(response)
+ })
+ .catch(next)
+ 
 });
 router.delete("/:id", (req, res, next) => {
   res.json("deleted");
