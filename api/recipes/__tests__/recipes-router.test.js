@@ -49,4 +49,20 @@ describe("recipes-router.js", () => {
       expect(response.body).toMatchObject(newRecipe);
     });
   });
+  describe("[put] /:id", () => {
+     it("should update a particular resource with a specific id ", async () => {
+    const id = 1; 
+    const changes = { 
+        name: "Updated recipe",
+        ingredients: "Updated Ingredients",
+        steps: "Updated steps"
+     }; 
+
+    const res = await request(server).put(`/api/recipes/${id}`).send(changes);
+
+    expect(res.status).toBe(201);
+    expect(res.body[0]).toHaveProperty('name', changes.name);
+  });
+
 });
+  });
