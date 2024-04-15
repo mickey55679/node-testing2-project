@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { getAll, getById, add, update } = require("./recipes-model");
+const { getAll, getById, add, update, remove} = require("./recipes-model");
 const {checkIfExists} = require('./recipes-middleware')
 
 router.get("/", (req, res, next) => {
@@ -36,7 +36,14 @@ router.put("/:id", (req, res, next) => {
  
 });
 router.delete("/:id", (req, res, next) => {
-  res.json("deleted");
+  const {id} = req.params;
+  remove(id)
+    .then((count) => {
+      if (count > 0) {
+        res.json({ message: `The recipe with id ${id} was deleted` });
+      }
+    })
+    .catch(next);
 });
 
 module.exports = router;
